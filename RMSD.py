@@ -3,10 +3,20 @@ import csv
 import os
 from bokeh.layouts import gridplot
 from bokeh.plotting import figure, show, output_file
+"""
+"Este es un scritp que genera una gráfica de RMSD (Root Mean Square Deviation)")
+"para una dinámica molecular de M picosegundos usando NAMD como motor de dinámica.")
+"La utilizacion comienza con introducir el nombre de tu sistema (e.g. Complejo Proteína-Ligando)")
+"Despues el nombre base de tu dinámica, e.g. dyna1 que englobará a los archivos dyna1.a.0.psf que es la informacion
+que VMD (Visual Molecular Dynamics) lee como entrada estructural. Luego lee archivos del tipo dyna1.X.N.coor.dcd, donde X
+puede tomar un valor de a cuando va de 0 a 9, b de 10 a 99, c de 100 a 999, d de 1000 a 9999, y así sucesivamente. N representa
+el valor (en picosegundos generalmente) del archivo de trayectorias (dcd) dependiendo del sample time será el tiempo en ps de 
+la dinámica.
+"""
+systename=input("Tira el nombre de tu complejo, sistema o modelo (e.g. Complejo ACHE-Taxol):")
 #HOLO
 basedyn=input("Tira el nombre base de la dinamica: ")
 #archivo=input("Tira el nombre de tu archivo otra vez...")
-
 f = open("RMSD.tcl", "w")
 f.write("""
 puts "Steps para leer dinamica:	"
@@ -54,7 +64,7 @@ for n in x:
 	xa.append(float(x[m]))
 	m = m+1
 
-p1.line(xa, y, color='#6b4c9a', legend='RMSD vs Frame')
+p1.line(xa, y, color='#6b4c9a', legend='systename')
 #p1.line(x3, yc, color='#cc2529', legend='ACh')
 #p1.line(x4, yd, color='#8e8c3e', legend='LQM 919')
 #p1.line(x5, ye, color='#3b914e', legend='LQM 996')
@@ -65,5 +75,5 @@ p1.legend.location = "top_left"
 window_size = 30
 window = np.ones(window_size)/float(window_size)
 
-output_file("/var/www/html/alex/RMSD_"+basedyn+".html", title="RMSD de "+basedyn)
+output_file("/var/www/html/alex/RMSD_"+systename+".html", title="RMSD de "+basedyn)
 show(gridplot([[p1]], plot_width=900, plot_height=600))  # open a browser
