@@ -64,7 +64,7 @@ for n in x:
 	xa.append(float(x[m]))
 	m = m+1
 
-p1.line(xa, y, color='#6b4c9a', legend='systename')
+p1.line(xa, y, color='#6b4c9a', legend=systename)
 #p1.line(x3, yc, color='#cc2529', legend='ACh')
 #p1.line(x4, yd, color='#8e8c3e', legend='LQM 919')
 #p1.line(x5, ye, color='#3b914e', legend='LQM 996')
@@ -75,5 +75,5 @@ p1.legend.location = "top_left"
 window_size = 30
 window = np.ones(window_size)/float(window_size)
 
-output_file("/var/www/html/alex/RMSD_"+systename+".html", title="RMSD de "+basedyn)
+output_file("/var/www/html/alex/RMSD_"+basedyn+".html", title="RMSD de "+systename)
 show(gridplot([[p1]], plot_width=900, plot_height=600))  # open a browser
