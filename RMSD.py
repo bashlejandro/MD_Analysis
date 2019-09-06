@@ -3,7 +3,7 @@ import csv
 import os
 from bokeh.layouts import gridplot
 from bokeh.plotting import figure, show, output_file
-
+#HOLO
 basedyn=input("Tira el nombre base de la dinamica: ")
 #archivo=input("Tira el nombre de tu archivo otra vez...")
 
