@@ -14,9 +14,7 @@ el valor (en picosegundos generalmente) del archivo de trayectorias (dcd) depend
 la dinámica.
 """
 systename=input("Tira el nombre de tu complejo, sistema o modelo (e.g. Complejo ACHE-Taxol):")
-#HOLO
 basedyn=input("Tira el nombre base de la dinamica: ")
-#archivo=input("Tira el nombre de tu archivo otra vez...")
 f = open("RMSD.tcl", "w")
 f.write("""
 puts "Steps para leer dinamica:	"
@@ -44,6 +42,7 @@ exit""")
 
 f.close()
 
+os.system("mkdir -m 777 var/www/html/python_graph")
 os.system("vmd -dispdev text "+basedyn+".a.0.psf -e RMSD.tcl")
 
 
@@ -59,21 +58,22 @@ with open(basedyn+'_RMSD.csv', newline='') as a:
     reader = csv.reader(a)
     for row in reader:
     	x.append(row[0])
-    	y.append(row[1])
+    	y1.append(row[1])
 for n in x:
 	xa.append(float(x[m]))
 	m = m+1
 
-p1.line(xa, y, color='#6b4c9a', legend=systename)
-#p1.line(x3, yc, color='#cc2529', legend='ACh')
-#p1.line(x4, yd, color='#8e8c3e', legend='LQM 919')
-#p1.line(x5, ye, color='#3b914e', legend='LQM 996')
-#p1.line(x6, yf, color='#d97726', legend='Lisinopril')
-#p1.line(x1, ya, color='#396ab1', legend='apo')
+p1.line(xa, y1, color='#6b4c9a', legend=systename)
+#p1.line(xb y2 color='#cc2529', legend='systename')
+#p1.line(xc y3 color='#8e8c3e', legend='systename')
+#p1.line(xd y4 color='#3b914e', legend='systename')
+#p1.line(xe y5 color='#d97726', legend='systename')
+#p1.line(xf y6 color='#396ab1', legend='systename')
 
 p1.legend.location = "top_left"
 window_size = 30
 window = np.ones(window_size)/float(window_size)
 
-output_file("/var/www/html/alex/RMSD_"+basedyn+".html", title="RMSD de "+systename)
-show(gridplot([[p1]], plot_width=900, plot_height=600))  # open a browser
+output_file("/var/www/html/python_graph/RMSD_"+basedyn+".html", title="RMSD de "+systename)
+# Uncomment to visualize 
+#show(gridplot([[p1]], plot_width=900, plot_height=600))  # open a browser
