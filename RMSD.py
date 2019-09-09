@@ -4,10 +4,10 @@ import os
 from bokeh.layouts import gridplot
 from bokeh.plotting import figure, show, output_file
 """
-"Este es un scritp que genera una gráfica de RMSD (Root Mean Square Deviation)")
-"para una dinámica molecular de M picosegundos usando NAMD como motor de dinámica.")
-"La utilizacion comienza con introducir el nombre de tu sistema (e.g. Complejo Proteína-Ligando)")
-"Despues el nombre base de tu dinámica, e.g. dyna1 que englobará a los archivos dyna1.a.0.psf que es la informacion
+Este es un scritp que genera una gráfica de RMSD (Root Mean Square Deviation)
+para una dinámica molecular de M picosegundos usando NAMD como motor de dinámica.
+La utilizacion comienza con introducir el nombre de tu sistema (e.g. Complejo Proteína-Ligando)
+Despues el nombre base de tu dinámica, e.g. dyna1 que englobará a los archivos dyna1.a.0.psf que es la informacion
 que VMD (Visual Molecular Dynamics) lee como entrada estructural. Luego lee archivos del tipo dyna1.X.N.coor.dcd, donde X
 puede tomar un valor de a cuando va de 0 a 9, b de 10 a 99, c de 100 a 999, d de 1000 a 9999, y así sucesivamente. N representa
 el valor (en picosegundos generalmente) del archivo de trayectorias (dcd) dependiendo del sample time será el tiempo en ps de 
