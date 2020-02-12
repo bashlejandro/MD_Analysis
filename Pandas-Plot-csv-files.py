@@ -3,6 +3,7 @@ import matplotlib.pyplot as plt
 from tkinter.filedialog import askopenfilename 
 from tkinter.filedialog import askdirectory    
 
+### Solo falta agregar que cree el archivo tcl que genere el archivo de datosy za! za! za!
 
 print('Make sure your file contains Headers per columnns and an adequate separator character e.g , \n ')
 #filename1=input('Please enter your file name with extension, e.g. HelloWorld.csv \n')
