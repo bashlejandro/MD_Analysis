@@ -10,13 +10,6 @@ la dinámica.
 
 La salida de la grafica consiste de un archivo HTML que puede ser visualizado en un explorador, este archivo es depositado por
 default en la ruta publica del servidor web Apache2 en un sistema basado en debian.
-
-Para añadir mas lineas usese :
-#p1.line(xb y2 color='#cc2529', legend='systename')
-#p1.line(xc y3 color='#8e8c3e', legend='systename')
-#p1.line(xd y4 color='#3b914e', legend='systename')
-#p1.line(xe y5 color='#d97726', legend='systename')
-#p1.line(xf y6 color='#396ab1', legend='systename')
 """
 import numpy as np
 import csv
@@ -38,8 +31,8 @@ mol addfile "$i" first 0 step """+steps+""" waitfor all
 } 
 set outfile [open """+basedyn+"""_RMSD.csv w]
 set nf [molinfo top get numframes]
-set frame0 [atomselect top """+sistema+""" frame 0]
-set sel [atomselect top """+sistema+"""]
+set frame0 [atomselect top " """+sistema+""" " frame 0]
+set sel [atomselect top " """+sistema+""" "]
 # Loop para calcular RMSD
 for { set i 0 } { $i <= $nf } { incr i } {
 $sel frame $i
@@ -49,7 +42,6 @@ puts $outfile "[expr {$i+1}]\,[measure rmsd $sel $frame0]"
 close $outfile
 exit""")
 f.close()
-os.system("mkdir -m 777 var/www/html/python_graph")
 os.system("vmd -dispdev text "+basedyn+".a.0.psf -e RMSD.tcl")
 p1 = figure()
 p1.grid.grid_line_alpha=1
@@ -66,5 +58,5 @@ p1.line(xa, y1, color='#6b4c9a', legend=systename)
 p1.legend.location = "top_left"
 window_size = 30
 window = np.ones(window_size)/float(window_size)
-output_file("/var/www/html/python_graph/RMSD_"+basedyn+".html", title="RMSD de "+systename)
+output_file("RMSD_"+basedyn+".html", title="RMSD de "+systename)
 show(gridplot([[p1]], plot_width=900, plot_height=600))
