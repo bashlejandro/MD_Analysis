@@ -54,7 +54,7 @@ with open(basedyn+'_RMSD.csv', newline='') as a:
     for row in reader:
     	x.append(float(row[0])*float(steps))
     	y1.append(row[1])
-p1.line(xa, y1, color='#6b4c9a', legend=systename)
+p1.line(x, y1, color='#6b4c9a', legend=systename)
 p1.legend.location = "top_left"
 window_size = 30
 window = np.ones(window_size)/float(window_size)
