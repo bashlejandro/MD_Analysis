@@ -16,14 +16,20 @@ import csv
 import os
 from bokeh.layouts import gridplot
 from bokeh.plotting import figure, show, output_file
-systename=input("Tira el nombre de tu complejo, sistema o modelo (e.g. Complejo ACHE-Taxol):")
-basedyn=input("Tira el nombre base de la dinamica: ")
-steps=input("Steps para leer dinamica: ")
-print("Sistema para el cual calcular RMSD.")
-sistema=input("protein, chain, name CA, resid: ")
+
+print("Please provide the following.")
+systename=input("Study system: ")
+basedyn=input("Molecular dynamics base name: ")
+steps=input("Steps number for read purpose: ")
+sample=input("MD sample time in ps: ")
+print("Select system for RMSD measurement.")
+system=input("e.g.: protein, chain X, name CA, resid 123: ")
+
 f = open("RMSD.tcl", "w")
 f.write("""
-#Para listar los archivos de trayectoria
+
+######### Get trajectory files in a ordered list ###########
+############################################################
 set files [glob *.coor.dcd]
 set list [lsort $files]
 foreach i $list {
@@ -31,9 +37,11 @@ mol addfile "$i" first 0 step """+steps+""" waitfor all
 } 
 set outfile [open """+basedyn+"""_RMSD.csv w]
 set nf [molinfo top get numframes]
-set frame0 [atomselect top " """+sistema+""" " frame 0]
-set sel [atomselect top " """+sistema+""" "]
-# Loop para calcular RMSD
+set frame0 [atomselect top " """+system+""" " frame 0]
+set sel [atomselect top " """+system+""" "]
+
+####################### RMSD Loop ##########################
+############################################################
 for { set i 0 } { $i <= $nf } { incr i } {
 $sel frame $i
 $sel move [measure fit $sel $frame0]
@@ -41,22 +49,23 @@ puts $outfile "[expr {$i+1}]\,[measure rmsd $sel $frame0]"
 }
 close $outfile
 exit""")
+
 f.close()
 os.system("vmd -dispdev text "+basedyn+".a.0.psf -e RMSD.tcl")
 p1 = figure()
 p1.grid.grid_line_alpha=1
-p1.xaxis.axis_label = 'Tiempo (ps)'
+p1.xaxis.axis_label = 'Time (ps)'
 p1.yaxis.axis_label = 'RMSD (\u212B)'
 x = []
-y1 = []
+y = []
 with open(basedyn+'_RMSD.csv', newline='') as a:
     reader = csv.reader(a)
     for row in reader:
-    	x.append(float(row[0])*float(steps))
-    	y1.append(row[1])
-p1.line(x, y1, color='#6b4c9a', legend=systename)
+    	x.append(float(row[0])*float(sample)*float(steps))
+    	y.append(float(row[1]))
+p1.line(x, y, color='#6b4c9a', legend_label=systename)
 p1.legend.location = "top_left"
 window_size = 30
 window = np.ones(window_size)/float(window_size)
-output_file("RMSD_"+basedyn+".html", title="RMSD de "+systename)
+output_file("RMSD_"+systename+".html", title="RMSD de "+systename)
 show(gridplot([[p1]], plot_width=900, plot_height=600))
