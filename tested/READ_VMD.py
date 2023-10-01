@@ -13,7 +13,7 @@ f.write("""
 set dcdfiles [glob *.coor.dcd]
 set dcdfiles [lsort $dcdfiles]
 set dcdfiles [lreplace $dcdfiles 0 """+str(int(neq)-1)+"""]
-foreach i $list {
+foreach i $dcdfiles {
 	mol addfile "$i" first 0 step """+steps+""" waitfor all
 	}
 mol modcolor 0 0 Structure
