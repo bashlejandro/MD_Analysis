@@ -5,5 +5,7 @@ It is necessary to modify the PATH and add aliases
 # Pal .bashrc 
 
 ##################### Scripts #########################
-alias vmddin='python /home/eag/.MD_Scripts/READ_VMD.py' 
-alias rmsdf='python /home/eag/.MD_Scripts/RMSD_RMSF.py'
+
+alias vmddin='python /home/eag/.MD_Scripts/tested/READ_VMD.py' 
+
+alias rmsdf='python /home/eag/.MD_Scripts/tested/RMSD_RMSF.py'
