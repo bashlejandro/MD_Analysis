@@ -1,8 +1,3 @@
-# Pal .bashrc 
-##################### Scripts #########################
-#alias vmddin='python /home/eag/.MD_Scripts/READ_VMD.py' 
-#alias rmsdf='python /home/eag/.MD_Scripts/RMSD_RMSF.py'
-
 import numpy as np
 import csv
 import os
