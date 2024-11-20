@@ -3,7 +3,7 @@ import csv
 import os
 from bokeh.layouts import gridplot
 from bokeh.plotting import figure, show, output_file
-print("This script uses VMD to help you read your NAMD molecular dynamics and extract the information to make RMSD, RMSF. It will generate two types of files for each graph: an HTML file and a CSV file.
+print("This script uses VMD to help you read your NAMD molecular dynamics and extract the information to make RMSD, RMSF. It will generate two types of files for each graph: an HTML file and a CSV file.")
 print("Provide the following information")
 neq=input("Indicate the number of *.coor.dcd files that do not correspond to the production phase (minimization, heating, equilibrium, etc.): ")
 systename=input("System name (this name will appear on the graph): ")
